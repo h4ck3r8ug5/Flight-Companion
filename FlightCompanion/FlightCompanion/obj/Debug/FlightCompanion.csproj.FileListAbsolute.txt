@@ -1,0 +1,2 @@
+c:\users\charles\documents\visual studio 2015\Projects\FlightCompanion\FlightCompanion\bin\Debug\FlightCompanion.exe.config
+C:\code\Private\Development Projects\Flight Companion\FlightCompanion\FlightCompanion\bin\Debug\FlightCompanion.exe.config
