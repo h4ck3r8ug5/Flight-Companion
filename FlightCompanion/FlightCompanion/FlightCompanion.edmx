@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FlightCompanionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aircraft">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Make" Type="varchar" MaxLength="50" />
+          <Property Name="Model" Type="varchar" MaxLength="50" />
+          <Property Name="MeanTakeOffWeight" Type="float" />
+          <Property Name="FuelBurn" Type="float" />
+          <Property Name="Thumbnail" Type="varbinary(max)" />
+          <Property Name="CruiseSpeed" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ChartType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="FlightHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartureAirport" Type="int" Nullable="false" />
+          <Property Name="ArrivalAirport" Type="int" Nullable="false" />
+          <Property Name="TakeoffWeight" Type="float" />
+          <Property Name="FlightLength" Type="time" Precision="7" />
+          <Property Name="ScheduleDate" Type="datetime" />
+          <Property Name="Aircraft" Type="int" />
+        </EntityType>
+        <EntityType Name="IcaoCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FlightCompanionModelStoreContainer">
+          <EntitySet Name="Aircraft" EntityType="Self.Aircraft" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartType" EntityType="Self.ChartType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlightHistory" EntityType="Self.FlightHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IcaoCode" EntityType="Self.IcaoCode" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FlightCompanionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aircraft">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MeanTakeOffWeight" Type="Double" />
+          <Property Name="FuelBurn" Type="Double" />
+          <Property Name="Thumbnail" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CruiseSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FlightHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartureAirport" Type="Int32" Nullable="false" />
+          <Property Name="ArrivalAirport" Type="Int32" Nullable="false" />
+          <Property Name="TakeoffWeight" Type="Double" />
+          <Property Name="FlightLength" Type="Time" Precision="7" />
+          <Property Name="ScheduleDate" Type="DateTime" Precision="3" />
+          <Property Name="Aircraft" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IcaoCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FlightCompanionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aircraft" EntityType="Self.Aircraft" />
+          <EntitySet Name="FlightHistories" EntityType="Self.FlightHistory" />
+          <EntitySet Name="IcaoCodes" EntityType="Self.IcaoCode" />
+          <EntitySet Name="ChartTypes" EntityType="FlightCompanionModel.ChartType" />
+        </EntityContainer>
+        <EntityType Name="ChartType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FlightCompanionModelStoreContainer" CdmEntityContainer="FlightCompanionEntities">
+          <EntitySetMapping Name="Aircraft">
+            <EntityTypeMapping TypeName="FlightCompanionModel.Aircraft">
+              <MappingFragment StoreEntitySet="Aircraft">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="MeanTakeOffWeight" ColumnName="MeanTakeOffWeight" />
+                <ScalarProperty Name="FuelBurn" ColumnName="FuelBurn" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="CruiseSpeed" ColumnName="CruiseSpeed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlightHistories">
+            <EntityTypeMapping TypeName="FlightCompanionModel.FlightHistory">
+              <MappingFragment StoreEntitySet="FlightHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DepartureAirport" ColumnName="DepartureAirport" />
+                <ScalarProperty Name="ArrivalAirport" ColumnName="ArrivalAirport" />
+                <ScalarProperty Name="TakeoffWeight" ColumnName="TakeoffWeight" />
+                <ScalarProperty Name="FlightLength" ColumnName="FlightLength" />
+                <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
+                <ScalarProperty Name="Aircraft" ColumnName="Aircraft" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IcaoCodes">
+            <EntityTypeMapping TypeName="FlightCompanionModel.IcaoCode">
+              <MappingFragment StoreEntitySet="IcaoCode">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartTypes">
+            <EntityTypeMapping TypeName="FlightCompanionModel.ChartType">
+              <MappingFragment StoreEntitySet="ChartType">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

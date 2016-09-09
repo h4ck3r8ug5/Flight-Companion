@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FlightCompanionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Aircraft">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Make" Type="varchar" MaxLength="50" />
+    <Property Name="Model" Type="varchar" MaxLength="50" />
+    <Property Name="MeanTakeOffWeight" Type="float" />
+    <Property Name="FuelBurn" Type="float" />
+    <Property Name="Thumbnail" Type="varbinary(max)" />
+    <Property Name="CruiseSpeed" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ChartType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="FlightHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartureAirport" Type="int" Nullable="false" />
+    <Property Name="ArrivalAirport" Type="int" Nullable="false" />
+    <Property Name="TakeoffWeight" Type="float" />
+    <Property Name="FlightLength" Type="time" Precision="7" />
+    <Property Name="ScheduleDate" Type="datetime" />
+    <Property Name="Aircraft" Type="int" />
+  </EntityType>
+  <EntityType Name="IcaoCode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="4" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="FlightCompanionModelStoreContainer">
+    <EntitySet Name="Aircraft" EntityType="Self.Aircraft" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChartType" EntityType="Self.ChartType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FlightHistory" EntityType="Self.FlightHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IcaoCode" EntityType="Self.IcaoCode" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

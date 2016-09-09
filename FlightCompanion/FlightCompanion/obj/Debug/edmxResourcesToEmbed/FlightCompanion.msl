@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FlightCompanionModelStoreContainer" CdmEntityContainer="FlightCompanionEntities">
+    <EntitySetMapping Name="Aircraft">
+      <EntityTypeMapping TypeName="FlightCompanionModel.Aircraft">
+        <MappingFragment StoreEntitySet="Aircraft">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Make" ColumnName="Make" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="MeanTakeOffWeight" ColumnName="MeanTakeOffWeight" />
+          <ScalarProperty Name="FuelBurn" ColumnName="FuelBurn" />
+          <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+          <ScalarProperty Name="CruiseSpeed" ColumnName="CruiseSpeed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FlightHistories">
+      <EntityTypeMapping TypeName="FlightCompanionModel.FlightHistory">
+        <MappingFragment StoreEntitySet="FlightHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DepartureAirport" ColumnName="DepartureAirport" />
+          <ScalarProperty Name="ArrivalAirport" ColumnName="ArrivalAirport" />
+          <ScalarProperty Name="TakeoffWeight" ColumnName="TakeoffWeight" />
+          <ScalarProperty Name="FlightLength" ColumnName="FlightLength" />
+          <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
+          <ScalarProperty Name="Aircraft" ColumnName="Aircraft" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IcaoCodes">
+      <EntityTypeMapping TypeName="FlightCompanionModel.IcaoCode">
+        <MappingFragment StoreEntitySet="IcaoCode">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChartTypes">
+      <EntityTypeMapping TypeName="FlightCompanionModel.ChartType">
+        <MappingFragment StoreEntitySet="ChartType">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

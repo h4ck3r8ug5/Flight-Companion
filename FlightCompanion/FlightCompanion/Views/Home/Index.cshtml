@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container-fluid">
+    <div class="row airport">
+        <div class="col-sm-4">
+            <span>Departing Airport:</span>
+            @Html.DropDownList("DepartureIcao", ViewData["IcaoCodes"] as List<SelectListItem>, new { id = "departureIcao" })
+        </div>
+        <div class="col-sm-4">
+            <span>Arriving Airport:</span>
+            @Html.DropDownList("DestinationIcao", ViewData["IcaoCodes"] as List<SelectListItem>, new { id = "destinationIcao" })
+        </div>
+        <div class="col-sm-4">
+            <button id="btnSubmitFrmRoutePlan" class="btn btn-primary">Plan Flight</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Flight Plan Summary</h4>
+            <div class="row">
+                <div class="col-sm-2">Departure Airport: <span id="departureAirport"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">Destination Airport: <span id="destinationAirport"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">Distance: <span id="distance"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">Metar: <span id="metar"></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <span>Departing Airport:</span>
+            @Html.DropDownList("ChartType", ViewData["ChartTypes"] as List<SelectListItem>, new { id = "chartType" })
+        </div>
+        <div class="col-sm-4">
+            <span>Selected Chart:</span>
+            @Html.DropDownList("SelectedChart", ViewData["Charts"] as List<SelectListItem>, new { id = "selectedChart" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="spacer">
+                <iframe src="" id="flightPlanPdf" height="500" width="700"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
