@@ -9,6 +9,7 @@
             $("#destinationAirport").text(data.DestinationAirport);
             $("#distance").text(data.Distance);
             $("#metar").text(data.Metar);
+            $("#waypoints").text(data.WayPoints);
             $("#chartType").attr("disabled", false);
         });
         
@@ -16,6 +17,7 @@
 
     $("#chartType").change(function () {
         $.get('/home/getCharts?chartType=' + $(this).val(), function (data) {
+            $("#selectedChart").html('');
             for (var i = 0; i < data.length; i++) {
                 $("#selectedChart").prepend(new Option(data[i].Text, data[i].Value));
             }

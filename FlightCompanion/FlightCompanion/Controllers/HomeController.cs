@@ -1,6 +1,4 @@
 ﻿using FlightCompanion.DAL;
-using FlightCompanion.Models;
-using System.Net.Mime;
 using System.Web.Mvc;
 
 namespace FlightCompanion.Controllers

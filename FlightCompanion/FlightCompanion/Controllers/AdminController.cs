@@ -31,9 +31,9 @@ namespace FlightCompanion.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int chartType, HttpPostedFileBase file)
+        public ActionResult Create(int chartType, HttpPostedFileBase[] files)
         {
-            var result = OperationProcessor.UploadChart(chartType, file, HttpContext);
+            var result = OperationProcessor.UploadChart(chartType, files, HttpContext);
             return result ? RedirectToAction("Index") : null;
         }
 

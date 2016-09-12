@@ -24,7 +24,8 @@ namespace FlightCompanion
                 DepartureAirport = flightPlan.DepartureAirport.AirportName,
                 DestinationAirport = flightPlan.DestinationAirport.AirportName,
                 Distance = flightPlan.Distance,
-                Metar = metar
+                Metar = metar,
+                WayPoints = flightPlan.Waypoints.Replace("|"," => "),
             };
         }
 
@@ -42,35 +43,41 @@ namespace FlightCompanion
             return chartTypes;
         }
 
-        internal static bool UploadChart(int chartType, HttpPostedFileBase file, HttpContextBase httpContext)
+        internal static bool UploadChart(int chartType, HttpPostedFileBase[] files, HttpContextBase httpContext)
         {
             var chartTypes = DataConnector.GetChartTypes();
-            file.SaveAs(httpContext.Server.MapPath("~/App_Data/" + Path.GetFileName(file.FileName)));
-            using (var entities = new FlightCompanionEntities())
+            foreach (var file in files)
             {
-                entities.Charts.Add(new Chart
+                file.SaveAs(httpContext.Server.MapPath("~/App_Data/" + Path.GetFileName(file.FileName)));
+                using (var entities = new FlightCompanionEntities())
                 {
-                    ChartType = chartType,
-                    Name = Path.GetFileName(file.FileName),
-                    Path = "~/App_Data"
-                });
+                    entities.Charts.Add(new Chart
+                    {
+                        ChartType = chartType,
+                        Name = Path.GetFileName(file.FileName),
+                        Path = "~/App_Data"
+                    });
 
-                return entities.SaveChanges() > 0;
+                    entities.SaveChanges();
+                }
             }
+
+            return true;
+
         }
 
         internal static List<SelectListItem> GetCharts(int chartType)
         {
             var charts = new FlightCompanionEntities()
                         .Charts.Where(x => x.ChartType == chartType)
-                        .Select(x=> new SelectListItem
+                        .Select(x => new SelectListItem
                         {
                             Value = x.Id.ToString(),
                             Text = x.Name
                         }).ToList();
 
             charts.Insert(0, new SelectListItem { Value = "-1", Text = "-Select-" });
-
+            charts.Reverse();
             return charts;
         }
     }
@@ -81,5 +88,6 @@ namespace FlightCompanion
         public string DepartureAirport { get; set; }
         public string DestinationAirport { get; set; }
         public string Distance { get; set; }
+        public string WayPoints { get; internal set; }
     }
 }

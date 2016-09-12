@@ -31,6 +31,9 @@
             <div class="row">
                 <div class="col-sm-12">Metar: <span id="metar"></span></div>
             </div>
+            <div class="row">
+                <div class="col-sm-12">Waypoints: <span id="waypoints"></span></div>
+            </div>
         </div>
     </div>
     <div class="row row-spacer">
@@ -38,18 +41,18 @@
             <span>Departing Airport:</span>
             @Html.DropDownList("ChartType", ViewData.ContainsKey("ChartTypes") ?
             ViewData["ChartTypes"] as List<SelectListItem> : new List<SelectListItem>(),
-            new { id = "chartType", @class="disabled form-control", disabled="disabled" })
+            new { id = "chartType", @class = "disabled form-control", disabled = "disabled" })
         </div>
         <div class="col-sm-4">
             <span>Selected Chart:</span>
             @Html.DropDownList("Chart", ViewData.ContainsKey("Charts") ?
             ViewData["Charts"] as List<SelectListItem> : new List<SelectListItem>(),
-            new { id = "selectedChart",  @class="col-sm-12 form-control", disabled = "disabled" })
+            new { id = "selectedChart", @class = "col-sm-12 form-control", disabled = "disabled" })
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-           <h5>Chart</h5>
+            <h5>Chart</h5>
             <div>
                 <iframe src="" id="flightPlanPdf" height="500" width="700" class="well spacer"></iframe>
             </div>
