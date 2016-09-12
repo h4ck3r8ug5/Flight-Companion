@@ -34,3 +34,16 @@ legend {
     text-decoration: underline;
     border: 1px solid #ccc;
 }
+
+select {
+    margin-bottom:5px;
+}
+
+.spacer {
+    margin-top: -8px;
+    width: 59%;
+}
+
+.row-spacer {
+    margin-top: 8px;
+}

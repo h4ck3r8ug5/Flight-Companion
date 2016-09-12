@@ -6,11 +6,11 @@
     <div class="row airport">
         <div class="col-sm-4">
             <span>Departing Airport:</span>
-            @Html.DropDownList("DepartureIcao", ViewData["IcaoCodes"] as List<SelectListItem>, new { id = "departureIcao" })
+            @Html.DropDownList("DepartureIcao", ViewData["IcaoCodes"] as List<SelectListItem>, new { id = "departureIcao", @class = "form-control" })
         </div>
         <div class="col-sm-4">
             <span>Arriving Airport:</span>
-            @Html.DropDownList("DestinationIcao", ViewData["IcaoCodes"] as List<SelectListItem>, new { id = "destinationIcao" })
+            @Html.DropDownList("DestinationIcao", ViewData["IcaoCodes"] as List<SelectListItem>, new { id = "destinationIcao", @class = "form-control" })
         </div>
         <div class="col-sm-4">
             <button id="btnSubmitFrmRoutePlan" class="btn btn-primary">Plan Flight</button>
@@ -33,20 +33,25 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row row-spacer">
         <div class="col-sm-4">
             <span>Departing Airport:</span>
-            @Html.DropDownList("ChartType", ViewData.ContainsKey("ChartTypes") ? ViewData["ChartTypes"] as List<SelectListItem> : new List<SelectListItem>(), new { id = "chartType", @class="disabled" })
+            @Html.DropDownList("ChartType", ViewData.ContainsKey("ChartTypes") ?
+            ViewData["ChartTypes"] as List<SelectListItem> : new List<SelectListItem>(),
+            new { id = "chartType", @class="disabled form-control", disabled="disabled" })
         </div>
         <div class="col-sm-4">
             <span>Selected Chart:</span>
-            @Html.DropDownList("Chart", ViewData.ContainsKey("Charts") ? ViewData["Charts"] as List<SelectListItem> : new List<SelectListItem>(), new { id = "selectedChart",  @class="disabled col-sm-12" })
+            @Html.DropDownList("Chart", ViewData.ContainsKey("Charts") ?
+            ViewData["Charts"] as List<SelectListItem> : new List<SelectListItem>(),
+            new { id = "selectedChart",  @class="col-sm-12 form-control", disabled = "disabled" })
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <div class="spacer">
-                <iframe src="" id="flightPlanPdf" height="500" width="700"></iframe>
+           <h5>Chart</h5>
+            <div>
+                <iframe src="" id="flightPlanPdf" height="500" width="700" class="well spacer"></iframe>
             </div>
         </div>
     </div>

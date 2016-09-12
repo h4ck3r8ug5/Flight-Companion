@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightCompanion.DAL;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,30 @@ namespace FlightCompanion
             var selectedChart = new FlightCompanionEntities().Charts.Find(chart);
             var path = httpContext.Server.MapPath(selectedChart.Path + '/' + selectedChart.Name);
             return File.ReadAllBytes(path);
+        }
+
+        internal static List<SelectListItem> GetChartTypes()
+        {
+            var chartTypes = DataConnector.GetChartTypes();
+            chartTypes.Insert(0, new SelectListItem { Value = "-1", Text = "-Chart Type-" });
+            return chartTypes;
+        }
+
+        internal static bool UploadChart(int chartType, HttpPostedFileBase file, HttpContextBase httpContext)
+        {
+            var chartTypes = DataConnector.GetChartTypes();
+            file.SaveAs(httpContext.Server.MapPath("~/App_Data/" + Path.GetFileName(file.FileName)));
+            using (var entities = new FlightCompanionEntities())
+            {
+                entities.Charts.Add(new Chart
+                {
+                    ChartType = chartType,
+                    Name = Path.GetFileName(file.FileName),
+                    Path = "~/App_Data"
+                });
+
+                return entities.SaveChanges() > 0;
+            }
         }
 
         internal static List<SelectListItem> GetCharts(int chartType)

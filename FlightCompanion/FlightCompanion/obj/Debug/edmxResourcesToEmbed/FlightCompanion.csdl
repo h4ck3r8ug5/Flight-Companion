@@ -66,10 +66,11 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="ChartType" Type="Int32" />
+    <NavigationProperty Name="ChartTypeMetadata" Relationship="FlightCompanionModel.FK_Chart_ChartType" FromRole="Chart" ToRole="ChartType" />
   </EntityType>
   <EntityType Name="FlightPlan">
     <Key>

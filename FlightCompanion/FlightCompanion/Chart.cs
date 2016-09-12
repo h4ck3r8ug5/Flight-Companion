@@ -18,5 +18,7 @@ namespace FlightCompanion
         public string Path { get; set; }
         public string Name { get; set; }
         public Nullable<int> ChartType { get; set; }
+    
+        public virtual ChartType ChartTypeMetadata { get; set; }
     }
 }

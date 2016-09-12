@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Path" Type="varchar" MaxLength="255" />
           <Property Name="Name" Type="varchar" MaxLength="255" />
           <Property Name="ChartType" Type="int" />
@@ -189,10 +189,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ChartType" Type="Int32" />
+          <NavigationProperty Name="ChartTypeMetadata" Relationship="FlightCompanionModel.FK_Chart_ChartType" FromRole="Chart" ToRole="ChartType" />
         </EntityType>
         <EntityType Name="FlightPlan">
           <Key>

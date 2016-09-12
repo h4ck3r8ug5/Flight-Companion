@@ -1,11 +1,15 @@
 ﻿$(document).ready(function () {
     $("#btnSubmitFrmRoutePlan").on('click', function () {
+        if ($("#departureIcao").val() === $("#destinationIcao").val()) {
+            alert('Departure and Destination cannot be the same. Use the backcourse in the FMC');
+            return false;
+        }
         $.get('/home/getSummary?departureIcao=' + $("#departureIcao").val() + '&destinationIcao=' + $("#destinationIcao").val(), function (data) {
             $("#departureAirport").text(data.DepartureAirport);
             $("#destinationAirport").text(data.DestinationAirport);
             $("#distance").text(data.Distance);
             $("#metar").text(data.Metar);
-            $("#chartType").removeClass("disabled");
+            $("#chartType").attr("disabled", false);
         });
         
     });
@@ -15,7 +19,7 @@
             for (var i = 0; i < data.length; i++) {
                 $("#selectedChart").prepend(new Option(data[i].Text, data[i].Value));
             }
-            $("#selectedChart").removeClass("disabled");
+            $("#selectedChart").attr("disabled", false);
         });
     });
 
