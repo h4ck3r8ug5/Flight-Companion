@@ -14,7 +14,20 @@ namespace FlightCompanion
     
     public partial class IcaoCode
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public IcaoCode()
+        {
+            this.FlightPlans = new HashSet<FlightPlan>();
+            this.FlightPlans1 = new HashSet<FlightPlan>();
+        }
+    
         public int Id { get; set; }
         public string Code { get; set; }
+        public string AirportName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlightPlan> FlightPlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FlightPlan> FlightPlans1 { get; set; }
     }
 }

@@ -12,18 +12,15 @@ namespace FlightCompanion
     using System;
     using System.Collections.Generic;
     
-    public partial class ChartType
+    public partial class FlightPlan
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ChartType()
-        {
-            this.Charts = new HashSet<Chart>();
-        }
-    
         public int Id { get; set; }
-        public string Value { get; set; }
+        public Nullable<int> Departure { get; set; }
+        public Nullable<int> Destination { get; set; }
+        public string Distance { get; set; }
+        public string Waypoints { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chart> Charts { get; set; }
+        public virtual IcaoCode DestinationAirport { get; set; }
+        public virtual IcaoCode DepartureAirport { get; set; }
     }
 }

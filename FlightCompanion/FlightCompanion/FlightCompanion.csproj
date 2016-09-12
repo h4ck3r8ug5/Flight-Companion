@@ -133,6 +133,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Chart.cs">
+      <DependentUpon>FlightCompanion.tt</DependentUpon>
+    </Compile>
     <Compile Include="ChartType.cs">
       <DependentUpon>FlightCompanion.tt</DependentUpon>
     </Compile>
@@ -154,6 +157,9 @@
       <DependentUpon>FlightCompanion.edmx</DependentUpon>
     </Compile>
     <Compile Include="FlightHistory.cs">
+      <DependentUpon>FlightCompanion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightPlan.cs">
       <DependentUpon>FlightCompanion.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

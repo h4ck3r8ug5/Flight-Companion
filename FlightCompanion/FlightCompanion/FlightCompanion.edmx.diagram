@@ -9,6 +9,11 @@
         <EntityTypeShape EntityType="FlightCompanionModel.FlightHistory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FlightCompanionModel.IcaoCode" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FlightCompanionModel.ChartType" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FlightCompanionModel.Chart" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FlightCompanionModel.FlightPlan" Width="1.5" PointX="4.75" PointY="3.75" />
+        <AssociationConnector Association="FlightCompanionModel.FK_Chart_ChartType" />
+        <AssociationConnector Association="FlightCompanionModel.FK_FlightPlan_IcaoCode" />
+        <AssociationConnector Association="FlightCompanionModel.FK_FlightPlan_IcaoCode1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

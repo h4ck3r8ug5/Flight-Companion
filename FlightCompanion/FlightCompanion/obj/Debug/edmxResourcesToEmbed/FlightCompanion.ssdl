@@ -12,6 +12,15 @@
     <Property Name="Thumbnail" Type="varbinary(max)" />
     <Property Name="CruiseSpeed" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="Chart">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Path" Type="varchar" MaxLength="255" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="ChartType" Type="int" />
+  </EntityType>
   <EntityType Name="ChartType">
     <Key>
       <PropertyRef Name="Id" />
@@ -31,17 +40,78 @@
     <Property Name="ScheduleDate" Type="datetime" />
     <Property Name="Aircraft" Type="int" />
   </EntityType>
+  <EntityType Name="FlightPlan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Departure" Type="int" />
+    <Property Name="Destination" Type="int" />
+    <Property Name="Distance" Type="nchar" MaxLength="10" />
+    <Property Name="Waypoints" Type="varchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="IcaoCode">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Code" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="AirportName" Type="varchar" MaxLength="200" />
   </EntityType>
+  <Association Name="FK_Chart_ChartType">
+    <End Role="ChartType" Type="Self.ChartType" Multiplicity="0..1" />
+    <End Role="Chart" Type="Self.Chart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChartType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chart">
+        <PropertyRef Name="ChartType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FlightPlan_IcaoCode">
+    <End Role="IcaoCode" Type="Self.IcaoCode" Multiplicity="0..1" />
+    <End Role="FlightPlan" Type="Self.FlightPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IcaoCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FlightPlan">
+        <PropertyRef Name="Departure" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FlightPlan_IcaoCode1">
+    <End Role="IcaoCode" Type="Self.IcaoCode" Multiplicity="0..1" />
+    <End Role="FlightPlan" Type="Self.FlightPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IcaoCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FlightPlan">
+        <PropertyRef Name="Destination" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="FlightCompanionModelStoreContainer">
     <EntitySet Name="Aircraft" EntityType="Self.Aircraft" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Chart" EntityType="Self.Chart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChartType" EntityType="Self.ChartType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FlightHistory" EntityType="Self.FlightHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FlightPlan" EntityType="Self.FlightPlan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IcaoCode" EntityType="Self.IcaoCode" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Chart_ChartType" Association="Self.FK_Chart_ChartType">
+      <End Role="ChartType" EntitySet="ChartType" />
+      <End Role="Chart" EntitySet="Chart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FlightPlan_IcaoCode" Association="Self.FK_FlightPlan_IcaoCode">
+      <End Role="IcaoCode" EntitySet="IcaoCode" />
+      <End Role="FlightPlan" EntitySet="FlightPlan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FlightPlan_IcaoCode1" Association="Self.FK_FlightPlan_IcaoCode1">
+      <End Role="IcaoCode" EntitySet="IcaoCode" />
+      <End Role="FlightPlan" EntitySet="FlightPlan" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

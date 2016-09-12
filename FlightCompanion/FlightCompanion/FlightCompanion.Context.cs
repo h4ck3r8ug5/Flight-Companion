@@ -29,5 +29,7 @@ namespace FlightCompanion
         public virtual DbSet<FlightHistory> FlightHistories { get; set; }
         public virtual DbSet<IcaoCode> IcaoCodes { get; set; }
         public virtual DbSet<ChartType> ChartTypes { get; set; }
+        public virtual DbSet<Chart> Charts { get; set; }
+        public virtual DbSet<FlightPlan> FlightPlans { get; set; }
     }
 }

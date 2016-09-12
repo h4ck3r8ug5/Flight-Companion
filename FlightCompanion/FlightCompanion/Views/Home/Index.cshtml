@@ -20,27 +20,27 @@
         <div class="col-sm-12">
             <h4>Flight Plan Summary</h4>
             <div class="row">
-                <div class="col-sm-2">Departure Airport: <span id="departureAirport"></span></div>
+                <div class="col-sm-12">Departure Airport: <span id="departureAirport"></span></div>
             </div>
             <div class="row">
-                <div class="col-sm-2">Destination Airport: <span id="destinationAirport"></span></div>
+                <div class="col-sm-12">Destination Airport: <span id="destinationAirport"></span></div>
             </div>
             <div class="row">
                 <div class="col-sm-2">Distance: <span id="distance"></span></div>
             </div>
             <div class="row">
-                <div class="col-sm-2">Metar: <span id="metar"></span></div>
+                <div class="col-sm-12">Metar: <span id="metar"></span></div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-4">
             <span>Departing Airport:</span>
-            @Html.DropDownList("ChartType", ViewData["ChartTypes"] as List<SelectListItem>, new { id = "chartType" })
+            @Html.DropDownList("ChartType", ViewData.ContainsKey("ChartTypes") ? ViewData["ChartTypes"] as List<SelectListItem> : new List<SelectListItem>(), new { id = "chartType", @class="disabled" })
         </div>
         <div class="col-sm-4">
             <span>Selected Chart:</span>
-            @Html.DropDownList("SelectedChart", ViewData["Charts"] as List<SelectListItem>, new { id = "selectedChart" })
+            @Html.DropDownList("Chart", ViewData.ContainsKey("Charts") ? ViewData["Charts"] as List<SelectListItem> : new List<SelectListItem>(), new { id = "selectedChart",  @class="disabled col-sm-12" })
         </div>
     </div>
     <div class="row">

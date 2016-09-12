@@ -30,12 +30,29 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AirportName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FlightPlans" Relationship="FlightCompanionModel.FK_FlightPlan_IcaoCode" FromRole="IcaoCode" ToRole="FlightPlan" />
+    <NavigationProperty Name="FlightPlans1" Relationship="FlightCompanionModel.FK_FlightPlan_IcaoCode1" FromRole="IcaoCode" ToRole="FlightPlan" />
   </EntityType>
   <EntityContainer Name="FlightCompanionEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Aircraft" EntityType="Self.Aircraft" />
     <EntitySet Name="FlightHistories" EntityType="Self.FlightHistory" />
     <EntitySet Name="IcaoCodes" EntityType="Self.IcaoCode" />
     <EntitySet Name="ChartTypes" EntityType="FlightCompanionModel.ChartType" />
+    <EntitySet Name="Charts" EntityType="FlightCompanionModel.Chart" />
+    <EntitySet Name="FlightPlans" EntityType="FlightCompanionModel.FlightPlan" />
+    <AssociationSet Name="FK_Chart_ChartType" Association="FlightCompanionModel.FK_Chart_ChartType">
+      <End Role="ChartType" EntitySet="ChartTypes" />
+      <End Role="Chart" EntitySet="Charts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FlightPlan_IcaoCode" Association="FlightCompanionModel.FK_FlightPlan_IcaoCode">
+      <End Role="IcaoCode" EntitySet="IcaoCodes" />
+      <End Role="FlightPlan" EntitySet="FlightPlans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FlightPlan_IcaoCode1" Association="FlightCompanionModel.FK_FlightPlan_IcaoCode1">
+      <End Role="IcaoCode" EntitySet="IcaoCodes" />
+      <End Role="FlightPlan" EntitySet="FlightPlans" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ChartType">
     <Key>
@@ -43,5 +60,63 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Value" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Charts" Relationship="FlightCompanionModel.FK_Chart_ChartType" FromRole="ChartType" ToRole="Chart" />
   </EntityType>
+  <EntityType Name="Chart">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ChartType" Type="Int32" />
+  </EntityType>
+  <EntityType Name="FlightPlan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Departure" Type="Int32" />
+    <Property Name="Destination" Type="Int32" />
+    <Property Name="Distance" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Waypoints" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DestinationAirport" Relationship="FlightCompanionModel.FK_FlightPlan_IcaoCode" FromRole="FlightPlan" ToRole="IcaoCode" />
+    <NavigationProperty Name="DepartureAirport" Relationship="FlightCompanionModel.FK_FlightPlan_IcaoCode1" FromRole="FlightPlan" ToRole="IcaoCode" />
+  </EntityType>
+  <Association Name="FK_Chart_ChartType">
+    <End Type="FlightCompanionModel.ChartType" Role="ChartType" Multiplicity="0..1" />
+    <End Type="FlightCompanionModel.Chart" Role="Chart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChartType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Chart">
+        <PropertyRef Name="ChartType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FlightPlan_IcaoCode">
+    <End Type="FlightCompanionModel.IcaoCode" Role="IcaoCode" Multiplicity="0..1" />
+    <End Type="FlightCompanionModel.FlightPlan" Role="FlightPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IcaoCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FlightPlan">
+        <PropertyRef Name="Departure" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FlightPlan_IcaoCode1">
+    <End Type="FlightCompanionModel.IcaoCode" Role="IcaoCode" Multiplicity="0..1" />
+    <End Type="FlightCompanionModel.FlightPlan" Role="FlightPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IcaoCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FlightPlan">
+        <PropertyRef Name="Destination" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

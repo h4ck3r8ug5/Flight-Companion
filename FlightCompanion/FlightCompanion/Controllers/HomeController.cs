@@ -14,30 +14,32 @@ namespace FlightCompanion.Controllers
             icaoCodes.Insert(0, new SelectListItem { Value = "-1", Text = "-ICAO-" });
             ViewData["IcaoCodes"] = icaoCodes;
 
+            var chartTypes = DataConnector.GetChartTypes();
+            chartTypes.Insert(0, new SelectListItem { Value = "-1", Text = "-Chart Type-" });
+            ViewData["ChartTypes"] = chartTypes;
             return View();
         }
 
         [HttpGet]
-        public JsonResult GetSummary(FlightPlan plan)
+        public JsonResult GetSummary(Models.FlightPlan plan)
         {
-            var chartType = DataConnector.GetChartTypes();
-
-            var response = new
-            {
-                DepartureAirport = "Cape Town",
-                DestinationAirport = "O.R Tambo",
-                Distance = "945",
-                Metar = "123455555 9999KT RBK 21/23 DP 23/43",
-            };
+            var chartTypes = DataConnector.GetChartTypes();
+            var response = OperationProcessor.GetFlightPlanSummary(plan);
 
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult GetCharts(int chartType)
+        {
+            var charts = OperationProcessor.GetCharts(chartType);
+            return Json(charts, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
-        public FileResult GetChart(int chartType, int selectedChart)
+        public FileResult GetChart(int chart)
         {
-            var chart = OperationProcessor.GetFlightPlan(chartType, selectedChart, HttpContext);
-            return new FileContentResult(chart, "application/pdf");
+            var selectedChart = OperationProcessor.GetFlightPlan(chart, HttpContext);
+            return new FileContentResult(selectedChart, "application/pdf");
         }
 
         [HttpGet]
