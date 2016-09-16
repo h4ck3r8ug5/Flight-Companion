@@ -6,5 +6,7 @@ namespace FlightCompanion.Models
     {
         public int DepartureIcao { get; set; }
         public int DestinationIcao { get; set; }
+        public string Waypoints { get; set; }
+        public string Distance { get; set; }
     }
 }

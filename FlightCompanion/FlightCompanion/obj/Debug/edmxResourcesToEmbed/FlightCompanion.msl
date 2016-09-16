@@ -47,9 +47,9 @@
     <EntitySetMapping Name="Charts">
       <EntityTypeMapping TypeName="FlightCompanionModel.Chart">
         <MappingFragment StoreEntitySet="Chart">
+          <ScalarProperty Name="ChartData" ColumnName="ChartData" />
           <ScalarProperty Name="ChartType" ColumnName="ChartType" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

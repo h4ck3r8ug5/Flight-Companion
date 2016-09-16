@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FlightCompanion.Models;
 
 namespace FlightCompanion
 {
@@ -32,8 +33,7 @@ namespace FlightCompanion
         internal static byte[] GetFlightPlan(int chart, HttpContextBase httpContext)
         {
             var selectedChart = new FlightCompanionEntities().Charts.Find(chart);
-            var path = httpContext.Server.MapPath(selectedChart.Path + '/' + selectedChart.Name);
-            return File.ReadAllBytes(path);
+            return selectedChart.ChartData;
         }
 
         internal static List<SelectListItem> GetChartTypes()
@@ -43,19 +43,21 @@ namespace FlightCompanion
             return chartTypes;
         }
 
-        internal static bool UploadChart(int chartType, HttpPostedFileBase[] files, HttpContextBase httpContext)
+        internal static bool UploadChart(int chartType, HttpPostedFileBase[] files)
         {
             var chartTypes = DataConnector.GetChartTypes();
             foreach (var file in files)
             {
-                file.SaveAs(httpContext.Server.MapPath("~/App_Data/" + Path.GetFileName(file.FileName)));
+                var bytes = new byte[file.InputStream.Length];
+                var postedFile = file.InputStream.Read(bytes, 0, bytes.Length);
+
                 using (var entities = new FlightCompanionEntities())
                 {
                     entities.Charts.Add(new Chart
                     {
                         ChartType = chartType,
                         Name = Path.GetFileName(file.FileName),
-                        Path = "~/App_Data"
+                        ChartData = bytes
                     });
 
                     entities.SaveChanges();
@@ -79,6 +81,35 @@ namespace FlightCompanion
             charts.Insert(0, new SelectListItem { Value = "-1", Text = "-Select-" });
             charts.Reverse();
             return charts;
+        }
+
+        internal static List<SelectListItem> GetICaoCodes()
+        {
+            var codes = DataConnector.GetICAOCodes();
+            codes.Insert(0, new SelectListItem { Value = "-1", Text = "-Select-" });
+
+            return codes;
+        }
+
+        internal static void UploadFlightPlan(Models.FlightPlan plan)
+        {
+            using (var entities = new FlightCompanionEntities())
+            {
+                entities.FlightPlans.Add(new FlightPlan
+                {
+                    Departure = plan.DepartureIcao,
+                    Destination = plan.DestinationIcao,
+                    Distance = plan.Distance,
+                    Waypoints= plan.Waypoints
+                });
+
+                entities.SaveChanges();
+            }
+        }
+
+        internal static void DeleteChart(int chartId)
+        {
+            DataConnector.DeleteChart(chartId);
         }
     }
 

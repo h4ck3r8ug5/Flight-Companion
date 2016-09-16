@@ -33,7 +33,7 @@ namespace FlightCompanion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(int chartType, HttpPostedFileBase[] files)
         {
-            var result = OperationProcessor.UploadChart(chartType, files, HttpContext);
+            var result = OperationProcessor.UploadChart(chartType, files);
             return result ? RedirectToAction("Index") : null;
         }
 
@@ -105,6 +105,29 @@ namespace FlightCompanion.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public ActionResult CreateFlightPlan()
+        {
+            var icaoCodes = OperationProcessor.GetICaoCodes();
+            ViewData["departureIcao"] = icaoCodes;
+            ViewData["destinationIcao"] = icaoCodes;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateFlightPlan(Models.FlightPlan plan)
+        {
+            OperationProcessor.UploadFlightPlan(plan);
+            return RedirectToAction("CreateFlightPlan") ;
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int chartId)
+        {
+            OperationProcessor.DeleteChart(chartId);
+            return RedirectToAction("Index");
         }
     }
 }

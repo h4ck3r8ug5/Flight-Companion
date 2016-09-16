@@ -38,5 +38,14 @@ namespace FlightCompanion.DAL
                 return dbContext.FlightHistories.ToList();
             }
         }
+
+        internal static void DeleteChart(int chartId)
+        {
+            using (var entities = new FlightCompanionEntities())
+            {
+                var chart = entities.Charts.Find(chartId);
+                entities.Charts.Remove(chart);
+            }
+        }
     }
 }

@@ -17,8 +17,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Path" Type="varchar" MaxLength="255" />
     <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="ChartData" Type="varbinary(max)" />
     <Property Name="ChartType" Type="int" />
   </EntityType>
   <EntityType Name="ChartType">
